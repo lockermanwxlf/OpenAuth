@@ -13,4 +13,14 @@ class HotpTest {
 
         assertEquals(Hotp.dynamicTruncate(bytes), 0x50ef7f19)
     }
+
+    @Test
+    fun testAgainstPrecomputedKeyAndCounter() {
+        val key = arrayOf(
+            0x47, 0xbb, 0x5a, 0x7d, 0x5d, 0xcc, 0x17, 0xfb, 0x07, 0x84
+        ).map { it.toByte() }.toByteArray()
+        val counter = 57540023L
+
+        assertEquals(711559, Hotp.generateHotp(key, counter, 6, "Sha1"))
+    }
 }
