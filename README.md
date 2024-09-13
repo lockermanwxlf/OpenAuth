@@ -1,3 +1,5 @@
+# OpenAuth
+
 *For now, work will be pulled into the [dev branch](https://github.com/lockermanwxlf/OpenAuth/tree/dev) until pipelines are made to build (and possibly publish) upon pull to main*
 
 OpenAuth is a TOTP client built in [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/).
