@@ -9,14 +9,14 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface TotpKeyDao {
     @Upsert
-    suspend fun UpsertAll(vararg TotpKeys: TotpKey)
+    suspend fun upsertAll(vararg TotpKeys: TotpKey)
 
     @Delete
-    suspend fun DeleteAll(vararg TotpKeys: TotpKey)
+    suspend fun geleteAll(vararg TotpKeys: TotpKey)
 
     @Query("SELECT * FROM totpKeys")
-    suspend fun GetAll(): List<TotpKey>
+    suspend fun getAll(): List<TotpKey>
 
     @Query("SELECT * FROM totpKeys")
-    fun GetAllAsFlow(): Flow<List<TotpKey>>
+    fun getAllAsFlow(): Flow<List<TotpKey>>
 }
