@@ -4,6 +4,8 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.room)
 }
 
 kotlin {
@@ -19,12 +21,16 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-
+                implementation(libs.androidx.room.runtime)
+                implementation(libs.androidx.sqlite.bundled)
             }
         }
     }
 }
 
+dependencies {
+    ksp(libs.androidx.room.compiler)
+}
 
 android {
     namespace = "org.jetbrains.kotlinx.multiplatform.library.template"
@@ -32,4 +38,8 @@ android {
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }
+}
+
+room {
+    schemaDirectory("$projectDir/schema")
 }
