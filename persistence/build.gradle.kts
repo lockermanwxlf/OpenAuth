@@ -21,7 +21,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(libs.androidx.room.runtime)
+                api(libs.androidx.room.runtime)
                 implementation(libs.androidx.sqlite.bundled)
             }
         }
