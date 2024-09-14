@@ -31,3 +31,4 @@ dependencyResolutionManagement {
 include(":composeApp")
 include(":otp")
 include(":googleAuthenticatorSpec")
+include(":persistence")
