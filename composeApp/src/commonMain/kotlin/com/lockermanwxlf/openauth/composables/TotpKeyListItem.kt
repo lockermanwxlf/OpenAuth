@@ -45,7 +45,7 @@ fun TotpKeyListItem(totpKey: TotpKey) {
                     period = totpKey.period,
                     digits = totpKey.digits,
                     algorithm = totpKey.algorithm
-                ).toString()
+                ).toString().padStart(totpKey.digits, '0')
             }
             timeRemaining = (totpKey.period - (time.toDouble() / 1000) % 30).toFloat()
             delay(50L)
