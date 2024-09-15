@@ -39,12 +39,14 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.apache.commons.codec)
 
             api(libs.koin.core)
             implementation(libs.koin.compose)
             implementation(libs.koin.compose.viewmodel)
 
             implementation(project(":persistence"))
+            implementation(project(":otp"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
