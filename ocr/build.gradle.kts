@@ -1,15 +1,44 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidLibrary)
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+kotlin {
+    androidTarget {
+        @OptIn(ExperimentalKotlinGradlePluginApi::class)
+        compilerOptions {
+            jvmTarget.set(JvmTarget.JVM_1_8)
+        }
+    }
+
+    jvm("desktop")
+
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                implementation(libs.zxing.core)
+            }
+        }
+
+        val desktopMain by getting {
+            dependencies {
+                implementation(libs.zxing.javase)
+                implementation(libs.kotlin.test)
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.zxing.android.core)
+            }
+        }
+    }
 }
 
-dependencies {
-    implementation(libs.zxing.core)
-    implementation(libs.zxing.javase)
-    testImplementation(libs.testng)
+android {
+    namespace = "com.lockermanwxlf.openauth.ocr"
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
 }

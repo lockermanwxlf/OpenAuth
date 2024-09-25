@@ -1,8 +1,8 @@
 package com.lockermanwxlf.openauth.ocr
 
-import org.junit.Test
-import org.testng.Assert.assertEquals
 import java.io.FileInputStream
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class OcrTest {
     @Test
