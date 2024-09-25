@@ -7,3 +7,9 @@ java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
 }
+
+dependencies {
+    implementation(libs.zxing.core)
+    implementation(libs.zxing.javase)
+    testImplementation(libs.testng)
+}
