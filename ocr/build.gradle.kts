@@ -23,16 +23,15 @@ kotlin {
             }
         }
 
-        val desktopMain by getting {
+        val commonTest by getting {
             dependencies {
-                implementation(libs.zxing.javase)
                 implementation(libs.kotlin.test)
             }
         }
 
-        val androidMain by getting {
+        val desktopMain by getting {
             dependencies {
-                implementation(libs.zxing.android.core)
+                implementation(libs.zxing.javase)
             }
         }
     }
@@ -41,4 +40,7 @@ kotlin {
 android {
     namespace = "com.lockermanwxlf.openauth.ocr"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
+    defaultConfig {
+        minSdk = 19
+    }
 }
