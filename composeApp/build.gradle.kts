@@ -46,7 +46,9 @@ kotlin {
             implementation(libs.koin.compose.viewmodel)
 
             implementation(project(":persistence"))
+            implementation(project(":googleAuthenticatorSpec"))
             implementation(project(":otp"))
+            implementation(project(":ocr"))
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
