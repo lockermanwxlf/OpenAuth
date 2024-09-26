@@ -7,8 +7,13 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -25,6 +30,13 @@ fun AddTotpKeyDialog(
 ) {
     val vm = koinViewModel<AddTotpKeyViewModel>()
     val ui = vm.uiState
+
+    var showFilePicker by remember { mutableStateOf(false) }
+    if (showFilePicker) {
+        FileDialog {
+            vm.autofillFromQR(it.toString())
+        }
+    }
 
     Dialog(
         onDismissRequest = onDismissRequest
@@ -69,6 +81,14 @@ fun AddTotpKeyDialog(
                     onValueChange = { vm.setAlgorithm(it) },
                     label = { Text("Algorithm") }
                 )
+
+                TextButton(
+                    onClick = {
+                        showFilePicker = true
+                    }
+                ) {
+                    Text("Autofill from QR Code")
+                }
 
                 Button(
                     onClick = {
