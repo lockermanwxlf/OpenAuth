@@ -2,8 +2,11 @@ package com.lockermanwxlf.openauth.composables
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.LinearProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -17,13 +20,19 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.unit.dp
 import com.lockermanwxlf.openauth.persistence.TotpKey
 import com.lockermanwxlf.otp.Totp
 import kotlinx.coroutines.delay
+import openauth.composeapp.generated.resources.Res
+import openauth.composeapp.generated.resources.baseline_content_copy_24
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TotpKeyListItem(totpKey: TotpKey) {
+    val clipboardManager = LocalClipboardManager.current
     var showCode by rememberSaveable { mutableStateOf(false) }
 
     var totpCode by rememberSaveable { mutableStateOf("") }
@@ -61,18 +70,32 @@ fun TotpKeyListItem(totpKey: TotpKey) {
         elevation = 10.dp,
         shape = RoundedCornerShape(5.dp)
     ) {
-        Box(
-            modifier = Modifier.padding(10.dp)
+        Row(
+            verticalAlignment = Alignment.CenterVertically
         ) {
-            if (showCode) {
-                Text(totpCode)
-            } else {
-                Text(totpKey.label)
+            Box(
+                modifier = Modifier.padding(10.dp)
+            ) {
+                if (showCode) {
+                    Text(totpCode)
+                } else {
+                    Text(totpKey.label)
+                }
+                LinearProgressIndicator(
+                    progress = timeRemaining.toFloat() / totpKey.period,
+                    modifier = Modifier.align(Alignment.BottomCenter)
+                )
             }
-            LinearProgressIndicator(
-                progress = timeRemaining.toFloat() / totpKey.period,
-                modifier = Modifier.align(Alignment.BottomCenter)
-            )
+            IconButton(
+                onClick = {
+                    clipboardManager.setText(buildAnnotatedString {
+                        append(totpCode)
+                    })
+                }
+            ) {
+                Icon(painter = painterResource(Res.drawable.baseline_content_copy_24), "Copy code")
+            }
         }
+
     }
 }
